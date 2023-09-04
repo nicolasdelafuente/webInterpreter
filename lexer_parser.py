@@ -2,10 +2,26 @@ import ply.lex as lex
 import ply.yacc as yacc
 
 # Definición de tokens
-tokens = (
-    'URL',
-    'SEARCH',
-)
+
+tokens = [
+    'nav',
+    '(',
+    ')',
+    ';',
+    '=',
+    'text',
+    'http://',
+    'https://',
+    ',',
+    'b',
+    'click',
+    'text',
+    'assert',
+]
+t_nav = r'nav'
+t_url = r'https://\S+'
+t_nombre = r'[a-zA-Z0-9_-]+'
+
 
 # Reglas para tokens
 t_URL = r'www\.[a-zA-Z0-9]+\.[a-zA-Z]+'
