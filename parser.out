@@ -2,49 +2,250 @@ Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
 Grammar
 
-Rule 0     S' -> command
-Rule 1     command -> URL
-Rule 2     command -> SEARCH
+Rule 0     S' -> commands
+Rule 1     commands -> commands command
+Rule 2     commands -> command
+Rule 3     command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON
+Rule 4     command -> ID ASSIGN TEXT SEMICOLON
+Rule 5     command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON
+Rule 6     command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON
 
 Terminals, with rules where they appear
 
-SEARCH               : 2
-URL                  : 1
+ASSIGN               : 4
+CLICK                : 5
+CLOSE_PAREN          : 3 5 6
+COMMA                : 6
+ID                   : 4 5 6
+NAV                  : 3
+OPEN_PAREN           : 3 5 6
+SEMICOLON            : 3 4 5 6
+TEXT                 : 4 6 6
+URL                  : 3
 error                : 
 
 Nonterminals, with rules where they appear
 
-command              : 0
+command              : 1 2
+commands             : 1 0
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . command
-    (1) command -> . URL
-    (2) command -> . SEARCH
+    (0) S' -> . commands
+    (1) commands -> . commands command
+    (2) commands -> . command
+    (3) command -> . NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON
+    (4) command -> . ID ASSIGN TEXT SEMICOLON
+    (5) command -> . CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON
+    (6) command -> . TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON
 
-    URL             shift and go to state 2
-    SEARCH          shift and go to state 3
+    NAV             shift and go to state 3
+    ID              shift and go to state 4
+    CLICK           shift and go to state 6
+    TEXT            shift and go to state 5
 
-    command                        shift and go to state 1
+    commands                       shift and go to state 1
+    command                        shift and go to state 2
 
 state 1
 
-    (0) S' -> command .
+    (0) S' -> commands .
+    (1) commands -> commands . command
+    (3) command -> . NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON
+    (4) command -> . ID ASSIGN TEXT SEMICOLON
+    (5) command -> . CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON
+    (6) command -> . TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON
 
+    NAV             shift and go to state 3
+    ID              shift and go to state 4
+    CLICK           shift and go to state 6
+    TEXT            shift and go to state 5
 
+    command                        shift and go to state 7
 
 state 2
 
-    (1) command -> URL .
+    (2) commands -> command .
 
-    $end            reduce using rule 1 (command -> URL .)
+    NAV             reduce using rule 2 (commands -> command .)
+    ID              reduce using rule 2 (commands -> command .)
+    CLICK           reduce using rule 2 (commands -> command .)
+    TEXT            reduce using rule 2 (commands -> command .)
+    $end            reduce using rule 2 (commands -> command .)
 
 
 state 3
 
-    (2) command -> SEARCH .
+    (3) command -> NAV . OPEN_PAREN URL CLOSE_PAREN SEMICOLON
 
-    $end            reduce using rule 2 (command -> SEARCH .)
+    OPEN_PAREN      shift and go to state 8
+
+
+state 4
+
+    (4) command -> ID . ASSIGN TEXT SEMICOLON
+
+    ASSIGN          shift and go to state 9
+
+
+state 5
+
+    (6) command -> TEXT . OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON
+
+    OPEN_PAREN      shift and go to state 10
+
+
+state 6
+
+    (5) command -> CLICK . OPEN_PAREN ID CLOSE_PAREN SEMICOLON
+
+    OPEN_PAREN      shift and go to state 11
+
+
+state 7
+
+    (1) commands -> commands command .
+
+    NAV             reduce using rule 1 (commands -> commands command .)
+    ID              reduce using rule 1 (commands -> commands command .)
+    CLICK           reduce using rule 1 (commands -> commands command .)
+    TEXT            reduce using rule 1 (commands -> commands command .)
+    $end            reduce using rule 1 (commands -> commands command .)
+
+
+state 8
+
+    (3) command -> NAV OPEN_PAREN . URL CLOSE_PAREN SEMICOLON
+
+    URL             shift and go to state 12
+
+
+state 9
+
+    (4) command -> ID ASSIGN . TEXT SEMICOLON
+
+    TEXT            shift and go to state 13
+
+
+state 10
+
+    (6) command -> TEXT OPEN_PAREN . ID COMMA TEXT CLOSE_PAREN SEMICOLON
+
+    ID              shift and go to state 14
+
+
+state 11
+
+    (5) command -> CLICK OPEN_PAREN . ID CLOSE_PAREN SEMICOLON
+
+    ID              shift and go to state 15
+
+
+state 12
+
+    (3) command -> NAV OPEN_PAREN URL . CLOSE_PAREN SEMICOLON
+
+    CLOSE_PAREN     shift and go to state 16
+
+
+state 13
+
+    (4) command -> ID ASSIGN TEXT . SEMICOLON
+
+    SEMICOLON       shift and go to state 17
+
+
+state 14
+
+    (6) command -> TEXT OPEN_PAREN ID . COMMA TEXT CLOSE_PAREN SEMICOLON
+
+    COMMA           shift and go to state 18
+
+
+state 15
+
+    (5) command -> CLICK OPEN_PAREN ID . CLOSE_PAREN SEMICOLON
+
+    CLOSE_PAREN     shift and go to state 19
+
+
+state 16
+
+    (3) command -> NAV OPEN_PAREN URL CLOSE_PAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 20
+
+
+state 17
+
+    (4) command -> ID ASSIGN TEXT SEMICOLON .
+
+    NAV             reduce using rule 4 (command -> ID ASSIGN TEXT SEMICOLON .)
+    ID              reduce using rule 4 (command -> ID ASSIGN TEXT SEMICOLON .)
+    CLICK           reduce using rule 4 (command -> ID ASSIGN TEXT SEMICOLON .)
+    TEXT            reduce using rule 4 (command -> ID ASSIGN TEXT SEMICOLON .)
+    $end            reduce using rule 4 (command -> ID ASSIGN TEXT SEMICOLON .)
+
+
+state 18
+
+    (6) command -> TEXT OPEN_PAREN ID COMMA . TEXT CLOSE_PAREN SEMICOLON
+
+    TEXT            shift and go to state 21
+
+
+state 19
+
+    (5) command -> CLICK OPEN_PAREN ID CLOSE_PAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 22
+
+
+state 20
+
+    (3) command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON .
+
+    NAV             reduce using rule 3 (command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON .)
+    ID              reduce using rule 3 (command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON .)
+    CLICK           reduce using rule 3 (command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON .)
+    TEXT            reduce using rule 3 (command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON .)
+    $end            reduce using rule 3 (command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON .)
+
+
+state 21
+
+    (6) command -> TEXT OPEN_PAREN ID COMMA TEXT . CLOSE_PAREN SEMICOLON
+
+    CLOSE_PAREN     shift and go to state 23
+
+
+state 22
+
+    (5) command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON .
+
+    NAV             reduce using rule 5 (command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON .)
+    ID              reduce using rule 5 (command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON .)
+    CLICK           reduce using rule 5 (command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON .)
+    TEXT            reduce using rule 5 (command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON .)
+    $end            reduce using rule 5 (command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON .)
+
+
+state 23
+
+    (6) command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN . SEMICOLON
+
+    SEMICOLON       shift and go to state 24
+
+
+state 24
+
+    (6) command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON .
+
+    NAV             reduce using rule 6 (command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON .)
+    ID              reduce using rule 6 (command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON .)
+    CLICK           reduce using rule 6 (command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON .)
+    TEXT            reduce using rule 6 (command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON .)
+    $end            reduce using rule 6 (command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON .)
 

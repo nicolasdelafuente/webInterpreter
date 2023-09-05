@@ -1,5 +1,7 @@
-nav('https://campus2023.unahur.edu.ar/login/index.php');
-username = //input[@id='F1:username'];
-text(username,"35970083");
-password = //input[@id='F1:password'];
-text(password,"FlorSeLaCome");
+nav("https://campus-act.unahur.edu.ar/login/index.php");
+username = "//input[@id='username']";
+text(username, "35970083");
+password = "//input[@id='password']";
+text(password, "FlorSe");
+button = "//button[@id='loginbtn']";
+click(button);

@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'SEARCH URLcommand : URL\n               | SEARCH'
+_lr_signature = 'ASSIGN CLICK CLOSE_PAREN COMMA ID NAV OPEN_PAREN SEMICOLON TEXT URLcommands : commands command\n                | commandcommand : NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLONcommand : ID ASSIGN TEXT SEMICOLONcommand : CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLONcommand : TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON'
     
-_lr_action_items = {'URL':([0,],[2,]),'SEARCH':([0,],[3,]),'$end':([1,2,3,],[0,-1,-2,]),}
+_lr_action_items = {'NAV':([0,1,2,7,17,20,22,24,],[3,3,-2,-1,-4,-3,-5,-6,]),'ID':([0,1,2,7,10,11,17,20,22,24,],[4,4,-2,-1,14,15,-4,-3,-5,-6,]),'CLICK':([0,1,2,7,17,20,22,24,],[6,6,-2,-1,-4,-3,-5,-6,]),'TEXT':([0,1,2,7,9,17,18,20,22,24,],[5,5,-2,-1,13,-4,21,-3,-5,-6,]),'$end':([1,2,7,17,20,22,24,],[0,-2,-1,-4,-3,-5,-6,]),'OPEN_PAREN':([3,5,6,],[8,10,11,]),'ASSIGN':([4,],[9,]),'URL':([8,],[12,]),'CLOSE_PAREN':([12,15,21,],[16,19,23,]),'SEMICOLON':([13,16,19,23,],[17,20,22,24,]),'COMMA':([14,],[18,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'command':([0,],[1,]),}
+_lr_goto_items = {'commands':([0,],[1,]),'command':([0,1,],[2,7,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,7 +26,11 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> command","S'",1,None,None,None),
-  ('command -> URL','command',1,'p_command','lexer_parser.py',27),
-  ('command -> SEARCH','command',1,'p_command','lexer_parser.py',28),
+  ("S' -> commands","S'",1,None,None,None),
+  ('commands -> commands command','commands',2,'p_commands','main.py',43),
+  ('commands -> command','commands',1,'p_commands','main.py',44),
+  ('command -> NAV OPEN_PAREN URL CLOSE_PAREN SEMICOLON','command',5,'p_command_nav','main.py',52),
+  ('command -> ID ASSIGN TEXT SEMICOLON','command',4,'p_command_assignment','main.py',57),
+  ('command -> CLICK OPEN_PAREN ID CLOSE_PAREN SEMICOLON','command',5,'p_command_click','main.py',61),
+  ('command -> TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN SEMICOLON','command',7,'p_command_text','main.py',65),
 ]
