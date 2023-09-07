@@ -1,4 +1,4 @@
-nav (https://www.freecodecamp.org);
-nav (https://www.freecamp.org);
+nav (https://campus-act.unahur.edu.ar/login/index.php);
 username = //input[@id="algo"];
 click (button);
+text(username, okay);

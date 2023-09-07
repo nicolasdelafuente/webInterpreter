@@ -1,11 +1,3 @@
-
-# -----------------------------------------------------------------------------
-# Rainman Sián
-# 07-02-2020
-#
-# Ejemplo mi primer proyecto con Python utilizando ply en Ubuntu
-# -----------------------------------------------------------------------------
-
 import re
 
 tokens  = (
@@ -19,6 +11,7 @@ tokens  = (
     'CORIZQ',
     'CORDER',
     'SEMICOLON',
+    'COMMA',
     'TEXT'
 )
 
@@ -32,6 +25,7 @@ t_CLOSE_PAREN    = r'\)'
 t_CORIZQ    = r'\['
 t_CORDER    = r'\]'
 t_SEMICOLON    = r';'
+t_COMMA    = r','
 t_CLICK    = r'click'
 palabras_clave = ['nav', 'click']
 t_TEXT    = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[a-zA-Z]+"
@@ -68,6 +62,10 @@ def p_command_nav(p):
 def p_command_click(p):
     'command : CLICK OPEN_PAREN TEXT CLOSE_PAREN SEMICOLON'
     print('El valor de la expresión es: ' + str(p[3]))
+
+def p_command_text(p):
+    'command : TEXT OPEN_PAREN TEXT COMMA TEXT CLOSE_PAREN SEMICOLON'
+    print('El valor de la expresión es: ' + str(p[3]) + "->" + str(p[5]))
 
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value)
