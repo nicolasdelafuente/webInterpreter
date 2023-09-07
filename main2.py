@@ -28,7 +28,7 @@ t_SEMICOLON    = r';'
 t_COMMA    = r','
 t_CLICK    = r'click'
 palabras_clave = ['nav', 'click']
-t_TEXT    = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[a-zA-Z]+"
+t_TEXT    = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[A-Za-z_][A-Za-z0-9_]*"
 
 # Caracteres ignorados
 t_ignore = " \t"
