@@ -1,0 +1,4 @@
+nav (https://www.freecodecamp.org);
+nav (https://www.freecamp.org);
+username = //input[@id="algo"];
+click (button);
