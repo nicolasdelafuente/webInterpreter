@@ -1,4 +1,5 @@
-nav (https://campus-act.unahur.edu.ar/login/index.php);
+nav (https://campus2023.unahur.edu.ar/login/index.php);
 username = //input[@id="algo"];
-click (button);
-text(username, okay15);
+text(username, 389318);
+text(password, origone151);
+click (loginbtn);
