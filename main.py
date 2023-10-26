@@ -1,6 +1,8 @@
 import re
 from selenium import webdriver
 from time import sleep
+import ply.yacc as yacc
+import ply.lex as lex
 from selenium.webdriver.common.by import By
 
 tokens  = (
@@ -45,9 +47,7 @@ def t_error(t):
     t.lexer.skip(1)
     
 # Construyendo el analizador léxico
-import ply.lex as lex
 lexer = lex.lex()
-
 
 # Definición de la gramática
 def p_instrucciones_lista(t):
@@ -80,7 +80,6 @@ def p_command_text(p):
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value)
 
-import ply.yacc as yacc
 parser = yacc.yacc()
 
 driver = webdriver.Chrome()
