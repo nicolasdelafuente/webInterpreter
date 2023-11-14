@@ -1,7 +1,0 @@
-nav("https://campus-act.unahur.edu.ar/login/index.php");
-username = "//input[@id='username']";
-text(username, "35970083");
-password = "//input[@id='password']";
-text(password, "FlorSe");
-button = "//button[@id='loginbtn']";
-click(button);
