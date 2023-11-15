@@ -105,17 +105,11 @@ def navigate_to_url(url):
 
 def get_text(element_id, element_text):
     try:
-        elements = driver.find_elements(By.CLASS_NAME, element_id)
-        exists = False
-        while not exists:
-            for element in elements:
-                if element.get_attribute('innerText') == element_text:
-                    exists = True
-                    break
+        elements = driver.find_elements(By.CLASS_NAME, element_id)    
+        exists = any(element.get_attribute('innerText') == element_text for element in elements)
         print (exists)
-        sleep(3)
     except Exception as e:
-        print(f"Error al obtener el texto del elemento con ID '{element_id}': {e}")
+        print(f"Error al obtener el texto del elemento con ID '{element_id}': {e}")
 
 def click_element(element_id):
     try:
