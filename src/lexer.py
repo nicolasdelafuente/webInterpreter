@@ -9,8 +9,6 @@ tokens = (
     'CLICK',
     'URL',
     'ASSIGN',
-    'CORIZQ',
-    'CORDER',
     'PUNTOYCOMA',
     'COMMA',
     'TEXT',
@@ -24,8 +22,6 @@ t_ID = r'//input\[@id="[a-zA-Z0-9_\-]+"\]'
 t_ASSIGN = r'='
 t_OPEN_PAREN = r'\('
 t_CLOSE_PAREN = r'\)'
-t_CORIZQ = r'\['
-t_CORDER = r'\]'
 t_PUNTOYCOMA = r';'
 t_COMMA = r','
 t_CLICK = r'click'
