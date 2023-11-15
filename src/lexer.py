@@ -11,7 +11,7 @@ tokens = (
     'ASSIGN',
     'CORIZQ',
     'CORDER',
-    'SEMICOLON',
+    'PUNTOYCOMA',
     'COMMA',
     'TEXT',
     'GET_TEXT'
@@ -26,7 +26,7 @@ t_OPEN_PAREN = r'\('
 t_CLOSE_PAREN = r'\)'
 t_CORIZQ = r'\['
 t_CORDER = r'\]'
-t_SEMICOLON = r';'
+t_PUNTOYCOMA = r';'
 t_COMMA = r','
 t_CLICK = r'click'
 palabras_clave = ['nav', 'click', 'getText']
