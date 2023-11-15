@@ -1,8 +1,6 @@
 import re
 from selenium import webdriver
 from time import sleep
-import ply.yacc as yacc
-import ply.lex as lex
 from selenium.webdriver.common.by import By
 
 tokens  = (
@@ -17,7 +15,8 @@ tokens  = (
     'CORDER',
     'SEMICOLON',
     'COMMA',
-    'TEXT'
+    'TEXT',
+    'GET_TEXT'
 )
 
 # Tokens
@@ -32,8 +31,9 @@ t_CORDER    = r'\]'
 t_SEMICOLON    = r';'
 t_COMMA    = r','
 t_CLICK    = r'click'
-palabras_clave = ['nav', 'click']
-t_TEXT   = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[A-Za-z0-9_]+"
+palabras_clave = ['nav', 'click', 'getText']
+t_TEXT   = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[A-Za-z0-9_\- ]+"
+t_GET_TEXT = r'getText'
 
 # Caracteres ignorados
 t_ignore = " \t"
@@ -47,7 +47,9 @@ def t_error(t):
     t.lexer.skip(1)
     
 # Construyendo el analizador léxico
+import ply.lex as lex
 lexer = lex.lex()
+
 
 # Definición de la gramática
 def p_instrucciones_lista(t):
@@ -77,9 +79,18 @@ def p_command_text(p):
     set_text(element_id, text)
     print('El valor de la expresión es: ' + str(p[3]) + "->" + str(p[5]))
 
+## define in the grammatic a command to get the text of an element
+def p_command_get_text(p):
+    'command : GET_TEXT OPEN_PAREN TEXT COMMA TEXT CLOSE_PAREN SEMICOLON'
+    element_id = p[3]
+    element_text = p[5]
+    get_text(element_id, element_text)
+    print('El valor de la expresión es: ' + str(p[3]))
+
 def p_error(t):
     print("Error sintáctico en '%s'" % t.value)
 
+import ply.yacc as yacc
 parser = yacc.yacc()
 
 driver = webdriver.Chrome()
@@ -90,7 +101,21 @@ def navigate_to_url(url):
     global current_url
     current_url = url
     driver.get(url)
-    sleep(3)
+    sleep(1)
+
+def get_text(element_id, element_text):
+    try:
+        elements = driver.find_elements(By.CLASS_NAME, element_id)
+        exists = False
+        while not exists:
+            for element in elements:
+                if element.get_attribute('innerText') == element_text:
+                    exists = True
+                    break
+        print (exists)
+        sleep(3)
+    except Exception as e:
+        print(f"Error al obtener el texto del elemento con ID '{element_id}': {e}")
 
 def click_element(element_id):
     try:
@@ -105,9 +130,14 @@ def set_text(element_id, text):
     try:
         element = driver.find_element(By.ID, element_id)
         element.send_keys(text)
-        sleep(3)
+        sleep(1)
     except Exception as e:
         print(f"Error al establecer el texto en el elemento con ID '{element_id}': {e}")
+
+# hacer un test utilizando pytest
+def test_navigate_to_url():
+    navigate_to_url("https://www.google.com/")
+    assert current_url == "https://www.google.com/"
 
 f = open("./entrada.txt", "r")
 input = f.read()
