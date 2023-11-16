@@ -11,7 +11,7 @@ def navigate_to_url(url):
     global current_url
     current_url = url
     driver.get(url)
-    sleep(1)
+    sleep(15)
 
 def get_text(element_class, element_text):
     try:
@@ -41,6 +41,6 @@ def set_text(element_id, text):
     try:
         element = driver.find_element(By.XPATH, element_id)
         element.send_keys(text)
-        sleep(1)
+        sleep(10)
     except Exception as e:
         print(f"Error al establecer el texto en el elemento con ID '{element_id}': {e}")
