@@ -20,7 +20,7 @@ tokens = (
 # Tokens
 t_NAV = r'nav'
 t_URL = r'https?:\/\/[a-zA-Z0-9\-\.\/\?\:@\-_=#]+'
-t_ID = r'//input\[@id="[a-zA-Z0-9_\-]+"\]'
+t_ID = r'//[\w]+\[@[\w]+="[a-zA-Z0-9_\-]+"\][\/\w\[\]]*'
 t_ASSIGN = r'='
 t_OPEN_PAREN = r'\('
 t_CLOSE_PAREN = r'\)'
@@ -30,7 +30,7 @@ t_PUNTOYCOMA = r';'
 t_COMMA = r','
 t_CLICK = r'click'
 palabras_clave = ['nav', 'click', 'getText']
-t_TEXT = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[A-Za-z0-9_\- ]+"
+t_TEXT = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[\w\s_\-|]+"
 t_GET_TEXT = r'getText'
 
 # Caracteres ignorados

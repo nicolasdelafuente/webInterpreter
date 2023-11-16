@@ -17,20 +17,20 @@ def p_command_nav(p):
     print('El valor de la expresión es: ' + str(p[3]))
 
 def p_command_click(p):
-    'command : CLICK OPEN_PAREN TEXT CLOSE_PAREN PUNTOYCOMA'
+    'command : CLICK OPEN_PAREN ID CLOSE_PAREN PUNTOYCOMA'
     element_id = p[3]
     click_element(element_id)
     print('El valor de la expresión es: ' + str(p[3]))
 
 def p_command_text(p):
-    'command : TEXT OPEN_PAREN TEXT COMMA TEXT CLOSE_PAREN PUNTOYCOMA'
+    'command : TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN PUNTOYCOMA'
     element_id = p[3]
     text = p[5]
     set_text(element_id, text)
     print('El valor de la expresión es: ' + str(p[3]) + "->" + str(p[5]))
 
 def p_command_get_text(p):
-    'command : GET_TEXT OPEN_PAREN TEXT COMMA TEXT CLOSE_PAREN PUNTOYCOMA'
+    'command : GET_TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN PUNTOYCOMA'
     element_id = p[3]
     element_text = p[5]
     get_text(element_id, element_text)

@@ -1,5 +1,5 @@
 nav (https://campus2023.unahur.edu.ar/login/index.php);
-text(username, 389318);
-text(password, origone151);
-click (loginbtn);
-getText(userinitials, JM);
+text(//input[@id="username"], 389318);
+text(//input[@id="password"], origone151);
+click (//button[@id="loginbtn"]);
+getText(//a[@id="usermenu"]/span[2], JM);
