@@ -16,12 +16,15 @@ def navigate_to_url(url):
 def get_text(element_class, element_text):
     try:
         elements = driver.find_elements(By.XPATH, element_class)
-        exists = any(element.get_attribute('innerText') == element_text for element in elements)
-        if exists:
-            print(f"Texto '{element_text}' encontrado con la CLASE: '{element_class}'.")
-        else:
-            print(f"Texto '{element_text}' no encontrado en el con la CLASE: '{element_class}'.")
-        return element_text
+        
+        assert_ = False
+
+        for element in elements:
+            if (element.get_attribute('innerText') == element_text) :
+                assert_ = True        
+        
+        print (f"'{element_text}' encontrado: '{assert_}'")
+    
     except Exception as e:
         print(f"Error al obtener el texto del elemento de la CLASE '{element_class}': {e}")
 

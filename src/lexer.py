@@ -26,7 +26,7 @@ t_PUNTOYCOMA = r';'
 t_COMMA = r','
 t_CLICK = r'click'
 palabras_clave = ['nav', 'click', 'getText']
-t_TEXT = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[\w\s_\-|]+"
+t_TEXT = fr"(?!({'|'.join(map(re.escape, palabras_clave))}))[\w\s_\-.\"'|]+"
 t_GET_TEXT = r'getText'
 
 # Caracteres ignorados
