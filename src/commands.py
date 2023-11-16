@@ -20,12 +20,8 @@ def get_text(element_class, element_text):
         if exists:
             print(f"Texto '{element_text}' encontrado con la CLASE: '{element_class}'.")
         else:
-<<<<<<< HEAD
             print(f"Texto '{element_text}' no encontrado en el con la CLASE: '{element_class}'.")
         return element_text
-=======
-            print(f"Texto '{element_text}' no encontrado con la CLASE: '{element_class}'.")
->>>>>>> dd25bc2ef072dc083dcf9dc3ec88698de633ca87
     except Exception as e:
         print(f"Error al obtener el texto del elemento de la CLASE '{element_class}': {e}")
 
