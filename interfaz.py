@@ -1,132 +1,119 @@
 import tkinter as tk
 from tkinter import filedialog
 import subprocess
+from tkinter.scrolledtext import ScrolledText
 
-def abrir_archivo():
-    file_path = filedialog.askopenfilename(filetypes=[("Archivos de texto", "*.txt")])
-    if file_path:
-        with open(file_path, 'r') as file:
-            contenido = file.read()
-            entrada_text.delete(1.0, tk.END)  # Limpiar el texto anterior si lo hay
-            entrada_text.insert(tk.END, contenido)
+class EditorEjecutor(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Editor y Ejecutor")
 
-def guardar_archivo():
-    contenido = entrada_text.get(1.0, tk.END)
-    with open('entrada.txt', 'w') as file:
-        file.write(contenido)
+        self.create_widgets()
 
-def correr_main():
-    guardar_archivo()
-    subprocess.run(['python', 'main.py'])  # Ejecutar el script main.py
+    def create_widgets(self):
+        abrir_button = tk.Button(self, text="Abrir archivo", command=self.abrir_archivo)
+        abrir_button.pack()
 
-def mostrar_ventana(titulo, mensaje, ancho=400, alto=200):
-    ventana = tk.Toplevel(root)
-    ventana.title(titulo)
-    ventana.geometry(f"{ancho}x{alto}")
-    mensaje_label = tk.Label(ventana, text=mensaje, padx=10, pady=10)
-    mensaje_label.pack()
+        self.entrada_text = tk.Text(self, height=20, width=60)
+        self.entrada_text.pack()
 
-def agregar_nav():
-    def agregar_nav_final():
-        url = url_entry.get()
-        entrada_text.insert(tk.END, f"nav ({url});\n")
-        nav_window.destroy()
+        self.salida_text = ScrolledText(self, height=10, width=60, bg="#D3D3D3")
+        self.salida_text.pack()
 
-    nav_window = tk.Toplevel(root)
-    nav_window.title("Agregar nav")
-    nav_window.geometry("400x100")
-    url_label = tk.Label(nav_window, text="Escriba la URL:")
-    url_label.pack()
-    url_entry = tk.Entry(nav_window, width=50)
-    url_entry.pack()
-    agregar_button = tk.Button(nav_window, text="Agregar", command=agregar_nav_final)
-    agregar_button.pack()
+        correr_button = tk.Button(self, text="Iniciar", command=self.correr_main)
+        correr_button.pack()
 
-def agregar_text():
-    def agregar_text_final():
-        xpath = xpath_entry.get()
-        texto = texto_entry.get()
-        entrada_text.insert(tk.END, f"text({xpath}, {texto});\n")
-        text_window.destroy()
+        botones_frame = tk.Frame(self)
+        botones_frame.pack()
 
-    text_window = tk.Toplevel(root)
-    text_window.title("Agregar text")
-    text_window.geometry("400x150")
-    xpath_label = tk.Label(text_window, text="Escriba el Xpath del input:")
-    xpath_label.pack()
-    xpath_entry = tk.Entry(text_window, width=50)
-    xpath_entry.pack()
-    texto_label = tk.Label(text_window, text="Escriba el texto:")
-    texto_label.pack()
-    texto_entry = tk.Entry(text_window, width=50)
-    texto_entry.pack()
-    agregar_button = tk.Button(text_window, text="Agregar", command=agregar_text_final)
-    agregar_button.pack()
+        self.create_button(botones_frame, "Agregar nav", self.agregar_nav, bg="lightblue")
+        self.create_button(botones_frame, "Agregar text", self.agregar_text, bg="lightgreen")
+        self.create_button(botones_frame, "Agregar click", self.agregar_click, bg="lightyellow")
+        self.create_button(botones_frame, "Agregar getText", self.agregar_getText, bg="lightpink")
 
-def agregar_click():
-    def agregar_click_final():
-        xpath = xpath_entry.get()
-        entrada_text.insert(tk.END, f"click ({xpath});\n")
-        click_window.destroy()
+        botones_frame.pack(side=tk.TOP, anchor='n')
 
-    click_window = tk.Toplevel(root)
-    click_window.title("Agregar click")
-    click_window.geometry("400x100")
-    xpath_label = tk.Label(click_window, text="Escriba el Xpath del botón:")
-    xpath_label.pack()
-    xpath_entry = tk.Entry(click_window, width=50)
-    xpath_entry.pack()
-    agregar_button = tk.Button(click_window, text="Agregar", command=agregar_click_final)
-    agregar_button.pack()
+    def create_button(self, frame, text, command, **kwargs):
+        button = tk.Button(frame, text=text, command=command, **kwargs)
+        button.pack(side=tk.LEFT, padx=10, pady=10)
 
-def agregar_getText():
-    def agregar_getText_final():
-        xpath = xpath_entry.get()
-        texto = texto_entry.get()
-        entrada_text.insert(tk.END, f"getText({xpath}, {texto});\n")
-        getText_window.destroy()
+    def abrir_archivo(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Archivos de texto", "*.txt")])
+        if file_path:
+            with open(file_path, 'r') as file:
+                contenido = file.read()
+                self.entrada_text.delete(1.0, tk.END)
+                self.entrada_text.insert(tk.END, contenido)
 
-    getText_window = tk.Toplevel(root)
-    getText_window.title("Agregar getText")
-    getText_window.geometry("400x150")
-    xpath_label = tk.Label(getText_window, text="Escriba el Xpath del texto:")
-    xpath_label.pack()
-    xpath_entry = tk.Entry(getText_window, width=50)
-    xpath_entry.pack()
-    texto_label = tk.Label(getText_window, text="Escriba el texto a comparar:")
-    texto_label.pack()
-    texto_entry = tk.Entry(getText_window, width=50)
-    texto_entry.pack()
-    agregar_button = tk.Button(getText_window, text="Agregar", command=agregar_getText_final)
-    agregar_button.pack()
+    def guardar_archivo(self):
+        contenido = self.entrada_text.get(1.0, tk.END)
+        with open('entrada.txt', 'w') as file:
+            file.write(contenido)
 
-root = tk.Tk()
-root.title("Editor y Ejecutor")
+    def correr_main(self):
+        self.guardar_archivo()
+        try:
+            result = subprocess.run(['python', 'main.py'], capture_output=True, text=True)
+            self.salida_text.delete(1.0, tk.END)
+            self.salida_text.insert(tk.END, result.stdout)
+            if result.stderr:
+                self.salida_text.insert(tk.END, "\nError:\n")
+                self.salida_text.insert(tk.END, result.stderr)
+        except Exception as e:
+            self.salida_text.insert(tk.END, f"\nError al ejecutar el script: {str(e)}")
 
-abrir_button = tk.Button(root, text="Abrir archivo", command=abrir_archivo)
-abrir_button.pack()
+    def mostrar_ventana(self, titulo, mensaje, ancho=400, alto=200):
+        ventana = tk.Toplevel(self)
+        ventana.title(titulo)
+        ventana.geometry(f"{ancho}x{alto}")
+        mensaje_label = tk.Label(ventana, text=mensaje, padx=10, pady=10)
+        mensaje_label.pack()
 
-entrada_text = tk.Text(root, height=20, width=60)
-entrada_text.pack()
+    def agregar_widget(self, titulo, campos, callback):
+        def agregar_final():
+            values = [entry.get() for entry in entries]
+            callback(*values)
+            window.destroy()
 
-correr_button = tk.Button(root, text="Correr main", command=correr_main)
-correr_button.pack()
+        window = tk.Toplevel(self)
+        window.title(titulo)
+        window.geometry("400x150")
 
-botones_frame = tk.Frame(root)
-botones_frame.pack()
+        entries = []
+        for campo in campos:
+            label = tk.Label(window, text=f"Escriba {campo}:")
+            label.pack()
+            entry = tk.Entry(window, width=50)
+            entry.pack()
+            entries.append(entry)
 
-nav_button = tk.Button(botones_frame, text="Agregar nav", command=agregar_nav, bg="lightblue")
-nav_button.pack(side=tk.LEFT, padx=10, pady=10)
+        agregar_button = tk.Button(window, text="Agregar", command=agregar_final)
+        agregar_button.pack()
 
-text_button = tk.Button(botones_frame, text="Agregar text", command=agregar_text, bg="lightgreen")
-text_button.pack(side=tk.LEFT, padx=10, pady=10)
+    def agregar_nav(self):
+        self.agregar_widget("Agregar nav", ["la URL"], self.agregar_nav_final)
 
-click_button = tk.Button(botones_frame, text="Agregar click", command=agregar_click, bg="lightyellow")
-click_button.pack(side=tk.LEFT, padx=10, pady=10)
+    def agregar_nav_final(self, url):
+        self.entrada_text.insert(tk.END, f"nav ({url});\n")
 
-getText_button = tk.Button(botones_frame, text="Agregar getText", command=agregar_getText, bg="lightpink")
-getText_button.pack(side=tk.LEFT, padx=10, pady=10)
+    def agregar_text(self):
+        self.agregar_widget("Agregar text", ["el Xpath del input", "el texto"], self.agregar_text_final)
 
-botones_frame.pack(side=tk.TOP, anchor='n')
+    def agregar_text_final(self, xpath, texto):
+        self.entrada_text.insert(tk.END, f"text({xpath}, {texto});\n")
 
-root.mainloop()
+    def agregar_click(self):
+        self.agregar_widget("Agregar click", ["el Xpath del botón"], self.agregar_click_final)
+
+    def agregar_click_final(self, xpath):
+        self.entrada_text.insert(tk.END, f"click ({xpath});\n")
+
+    def agregar_getText(self):
+        self.agregar_widget("Agregar getText", ["el Xpath del texto", "el texto a comparar"], self.agregar_getText_final)
+
+    def agregar_getText_final(self, xpath, texto):
+        self.entrada_text.insert(tk.END, f"getText({xpath}, {texto});\n")
+
+if __name__ == "__main__":
+    app = EditorEjecutor()
+    app.mainloop()
