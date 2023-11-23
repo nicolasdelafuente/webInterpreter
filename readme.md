@@ -4,38 +4,48 @@ pip install selenium
 
 pip install ply
 
-## Archivos importantes
+### Manual de uso
 
-## Main
+El Web Interpreter puede ejecutarse de dos formas:
 
-Importa módulos necesarios, como re (para expresiones regulares), selenium (para automatización web), time (para agregar retrasos), ply.yacc y ply.lex (para crear un analizador y un lexer), y selenium.webdriver.common.by (para definir localizadores de elementos).
+- Ejecutando el programa entero haciendo uso del archivo "entrada.txt"
+- Ejecutando la interfaz gráfica donde se puede cargar cada comando a mano, o cargar un archivo alojado en tu pc.
 
-Define un conjunto de nombres de tokens para el lexer, incluyendo palabras clave como NAV, URL, ID, CLICK, y operadores como ASSIGN, OPEN_PAREN y CLOSE_PAREN. También define expresiones regulares para coincidir con URLs y IDs de elementos.
+## Ejecutando Web Interprete desde main.py
 
-Define las reglas del lexer para tokenizar el código de entrada.
+- Desde la consola ejecutamos el comando:
+~~~
+py main.py
+~~~
 
-Configura un analizador básico utilizando PLY, definiendo reglas de gramática para comandos como NAV, CLICK y ASSIGN. Especifica cómo se analizan estos comandos y qué acciones tomar cuando se encuentra cada comando.
+De esta forma ejecutaremos el programa entero, tomando como input el archivo "entrada.txt" 
 
-Define funciones de manejo de errores tanto para el lexer como para el analizador para manejar errores de sintaxis.
+## Ejecutando Web Interprete desde interfaz.py
 
-Inicializa un controlador de WebDriver para Chrome utilizando Selenium.
+- Desde la consola ejecutamos el comando:
+~~~
+py interfaz.py
+~~~
 
-Define funciones para navegar a una URL, hacer clic en un elemento y establecer texto en un elemento. Estas funciones utilizan Selenium para interactuar con la página web.
+Nos abrirá una interfaz donde tendremos diferentes opciones:
 
-Lee la entrada desde un archivo llamado "entrada.txt".
+1- Desde el botón "Abrir archivo" podemos seleccionar un archivo desde nuestra pc (archivo .txt) con el código a ejecutar.
+2- Podemos escribir a mano los comandos a ejecutar en la interfaz.
+3- Desde el botón "Agregar nav" se nos abrirá otra pantalla para poder ingresar la url a donde navegar.
+4- Desde el botón "Agregar text" donde podemos decirle en que lugar (XPATH) y el texto a escribir.
+5- Desde el botón "Agregar click" donde podemos pasarle el XPATH del boton a clickear.
+6- Desde el botón "Obtener texto" donde escribimos el XPATH del que tiene el texto que debemos comparar.
+7- Desde el botón "Comparar texto" donde escribimos el texto que debería estar guardado anteriormente desde el botón "Obtener texto". 
 
-Analiza la entrada utilizando el analizador definido.
+A medida que vamos agregando los comandos veremos en la interfaz los cambios.
 
-## Parser
+Con el botón "Iniciar" corremos el programa con los comandos antes agregados.
 
-El analizador sintáctico se utiliza para analizar la estructura del lenguaje específico de dominio que se ha definido previamente. 
 
-Las partes clave del archivo "parsetab.py" son:
+## Comandos
 
-La definición de la versión del analizador generado y el método de análisis (LALR).
-
-La firma del analizador sintáctico (_lr_signature) que describe cómo se reconocen y procesan los tokens y las reglas de la gramática.
-
-Las acciones que se deben tomar cuando se encuentran ciertos tokens durante el análisis.
-
-Las reglas de producción (_lr_productions) que definen cómo se deben construir las estructuras de datos a medida que se analiza la entrada.
+nav(url);  ------------------------> Navega a la url solicitada (con formato http o https)
+text(XPATH, Texto_a_ingresar ); ---> Ingresa el valor del "Texto_a_ingresar" en ese XPATH
+click (XPATH); --------------------> Hace click en el botón indicado como XPATH
+elementText(XPATH);  --------------> Guarda el texto que se encuentre en este XPATH
+assertText(texto_a_comparar); -----> Compara el texto_a_comparar con el texto anteriormente guardado en elementText(xpath)
