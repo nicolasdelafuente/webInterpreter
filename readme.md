@@ -4,14 +4,14 @@ pip install selenium
 
 pip install ply
 
-### Manual de uso
+## Manual de uso
 
 El Web Interpreter puede ejecutarse de dos formas:
 
 - Ejecutando el programa entero haciendo uso del archivo "entrada.txt"
 - Ejecutando la interfaz gráfica donde se puede cargar cada comando a mano, o cargar un archivo alojado en tu pc.
 
-## Ejecutando Web Interprete desde main.py
+### Ejecutando Web Interprete desde main.py
 
 - Desde la consola ejecutamos el comando:
 ~~~
@@ -20,7 +20,7 @@ py main.py
 
 De esta forma ejecutaremos el programa entero, tomando como input el archivo "entrada.txt" 
 
-## Ejecutando Web Interprete desde interfaz.py
+### Ejecutando Web Interprete desde interfaz.py
 
 - Desde la consola ejecutamos el comando:
 ~~~
@@ -42,10 +42,14 @@ A medida que vamos agregando los comandos veremos en la interfaz los cambios.
 Con el botón "Iniciar" corremos el programa con los comandos antes agregados.
 
 
-## Comandos
+## Comandos aceptados
 
 -nav(url);  ------------------------> Navega a la url solicitada (con formato http o https)
+
 -text(XPATH, Texto_a_ingresar ); ---> Ingresa el valor del "Texto_a_ingresar" en ese XPATH
+
 -click (XPATH); --------------------> Hace click en el botón indicado como XPATH
+
 -elementText(XPATH);  --------------> Guarda el texto que se encuentre en este XPATH
--assertText(texto_a_comparar); -----> Compara el texto_a_comparar con el texto -anteriormente guardado en elementText(xpath)
+
+-assertText(texto_a_comparar); -----> Compara el texto_a_comparar con el texto anteriormente guardado en elementText(xpath)
