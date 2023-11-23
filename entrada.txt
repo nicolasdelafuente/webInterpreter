@@ -10,3 +10,5 @@ assertText("Estrategias de Persistencia...");
 assertText(Estrategias de Persistencia...);
 
 
+
+

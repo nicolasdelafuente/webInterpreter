@@ -44,7 +44,6 @@ def get_element_text(element_id):
 def click_element(element_id):
     try:
         element = driver.find_element(By.XPATH, element_id)
-        print(element)
         element.click()
         sleep(3)
     except Exception as e:

@@ -29,7 +29,8 @@ class EditorEjecutor(tk.Tk):
         self.create_button(botones_frame, "Agregar nav", self.agregar_nav, bg="lightblue")
         self.create_button(botones_frame, "Agregar text", self.agregar_text, bg="lightgreen")
         self.create_button(botones_frame, "Agregar click", self.agregar_click, bg="lightyellow")
-        self.create_button(botones_frame, "Agregar getText", self.agregar_getText, bg="lightpink")
+        self.create_button(botones_frame, "Obtener texto", self.obtener_text, bg="lightpink")
+        self.create_button(botones_frame, "Comparar texto", self.comparar_text, bg="lightcoral")
 
         botones_frame.pack(side=tk.TOP, anchor='n')
 
@@ -108,11 +109,17 @@ class EditorEjecutor(tk.Tk):
     def agregar_click_final(self, xpath):
         self.entrada_text.insert(tk.END, f"click ({xpath});\n")
 
-    def agregar_getText(self):
-        self.agregar_widget("Agregar getText", ["el Xpath del texto", "el texto a comparar"], self.agregar_getText_final)
+    def obtener_text(self):
+        self.agregar_widget("Obtener texto", ["el Xpath del texto"], self.obtener_text_final)
 
-    def agregar_getText_final(self, xpath, texto):
-        self.entrada_text.insert(tk.END, f"getText({xpath}, {texto});\n")
+    def obtener_text_final(self, xpath):
+        self.entrada_text.insert(tk.END, f"elementText({xpath});\n")
+    
+    def comparar_text(self):
+        self.agregar_widget("Comparar texto", ["el texto a comparar"], self.comparar_text_final)
+
+    def comparar_text_final(self, texto):
+        self.entrada_text.insert(tk.END, f"assertText({texto});\n")
 
 if __name__ == "__main__":
     app = EditorEjecutor()
