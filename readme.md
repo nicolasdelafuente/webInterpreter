@@ -44,8 +44,8 @@ Con el botón "Iniciar" corremos el programa con los comandos antes agregados.
 
 ## Comandos
 
-nav(url);  ------------------------> Navega a la url solicitada (con formato http o https)
-text(XPATH, Texto_a_ingresar ); ---> Ingresa el valor del "Texto_a_ingresar" en ese XPATH
-click (XPATH); --------------------> Hace click en el botón indicado como XPATH
-elementText(XPATH);  --------------> Guarda el texto que se encuentre en este XPATH
-assertText(texto_a_comparar); -----> Compara el texto_a_comparar con el texto anteriormente guardado en elementText(xpath)
+-nav(url);  ------------------------> Navega a la url solicitada (con formato http o https)
+-text(XPATH, Texto_a_ingresar ); ---> Ingresa el valor del "Texto_a_ingresar" en ese XPATH
+-click (XPATH); --------------------> Hace click en el botón indicado como XPATH
+-elementText(XPATH);  --------------> Guarda el texto que se encuentre en este XPATH
+-assertText(texto_a_comparar); -----> Compara el texto_a_comparar con el texto -anteriormente guardado en elementText(xpath)
