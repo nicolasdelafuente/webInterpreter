@@ -1,8 +1,12 @@
-nav (https://campus2023.unahur.edu.ar/login/index.php);
+nav(https://campus2023.unahur.edu.ar/login/index.php);
 text(//input[@id="username"], 389318);
 text(//input[@id="password"], origone151);
 click (//button[@id="loginbtn"]);
-getText(//a[@id="usermenu"]/span[2], JM);
-getText(//a[@id="usermenu"]/span[2], AY);
-getText(//ul[@id="dropdownmain-navigation0"]/li/a, "Estrategias de Persistencia...");
-getText(//ul[@id="dropdownmain-navigation0"]/li/a, Estrategias de Persistencia...);
+elementText(//a[@id="usermenu"]/span[2]);
+assertText(AY);
+assertText(JM);
+elementText(//ul[@id="dropdownmain-navigation0"]/li/a);
+assertText("Estrategias de Persistencia...");
+assertText(Estrategias de Persistencia...);
+
+

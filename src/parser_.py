@@ -29,11 +29,17 @@ def p_command_text(p):
     set_text(element_id, text)
     #print('El valor de la expresión es: ' + str(p[3]) + "->" + str(p[5]))
 
-def p_command_get_text(p):
-    'command : GET_TEXT OPEN_PAREN ID COMMA TEXT CLOSE_PAREN PUNTOYCOMA'
+def p_command_element_text(p):
+    'command : ELEMENT_TEXT OPEN_PAREN ID CLOSE_PAREN PUNTOYCOMA'
     element_id = p[3]
-    element_text = p[5]
-    get_text(element_id, element_text)
+    texts = get_element_text(element_id)
+    guardar_texto(texts)
+    #print('El valor de la expresión es: ' + str(p[3]))
+
+def p_command_assert_element_text(p):
+    'command : ASSERT_TEXT OPEN_PAREN TEXT CLOSE_PAREN PUNTOYCOMA'
+    text = p[3]
+    assert_text(text)
     #print('El valor de la expresión es: ' + str(p[3]))
 
 def p_error(t):
